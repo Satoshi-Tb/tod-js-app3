@@ -18,25 +18,26 @@ const onClickAdd = () => {
   completeButton.innerText = "完了";
   completeButton.addEventListener("click", () => {
     //未完了リストから削除
-    const deleteTarget = deleteButton.parentNode.parentNode;
-    document.getElementById("incomplete-list").removeChild(deleteTarget);
+    deleteFromIncompleteList(deleteButton.parentNode.parentNode);
 
     //完了リストに追加
+    const addTarget = completeButton.parentNode; //div要素取得
+    const text = addTarget.firstElementChild.innerText; //TODO文字列取得
+
+    //div以下を初期化
+    addTarget.textContent = null;
+
     const li = document.createElement("li");
-
-    const div = document.createElement("div");
-    div.className = "list-row";
-
     const p = document.createElement("p");
-    p.innerText = inputText;
+    p.innerText = text;
 
-    const returnButton = document.createElement("button");
-    returnButton.innerText = "戻す";
-    returnButton.addEventListener("click", () => {});
+    const backButton = document.createElement("button");
+    backButton.innerText = "戻す";
+    backButton.addEventListener("click", () => {});
 
-    li.appendChild(div);
-    div.appendChild(p);
-    div.appendChild(returnButton);
+    li.appendChild(addTarget);
+    addTarget.appendChild(p);
+    addTarget.appendChild(backButton);
     document.getElementById("complete-list").appendChild(li);
   });
 
@@ -44,8 +45,7 @@ const onClickAdd = () => {
   deleteButton.innerText = "削除";
   deleteButton.addEventListener("click", () => {
     //押された削除ボタンの親タグ(div)の、さらに親(li)を未完了リストから削除
-    const deleteTarget = deleteButton.parentNode.parentNode;
-    document.getElementById("incomplete-list").removeChild(deleteTarget);
+    deleteFromIncompleteList(deleteButton.parentNode.parentNode);
   });
 
   li.appendChild(div);
@@ -58,6 +58,10 @@ const onClickAdd = () => {
   //console.log(li);
 };
 
+// 未完了リストから指定の要素を削除
+const deleteFromIncompleteList = (target) => {
+  document.getElementById("incomplete-list").removeChild(target);
+};
 document
   .getElementById("add-button")
   .addEventListener("click", () => onClickAdd());
