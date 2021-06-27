@@ -1,2 +1,1 @@
-# tod-js-app3
-Created with CodeSandbox
+Udemy演習用。Todoアプリ（JavaScript）
